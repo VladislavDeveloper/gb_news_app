@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoriesController\CategoriesController;
+use App\Http\Controllers\HomeController\HomeController;
+use App\Http\Controllers\NewsController\NewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,36 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-$news = [
-    [
-        'id' => 1,
-        'title' => 'Получено первое рентгеновское изображение отдельного атома'
-    ],
-    [
-        'id' => 2,
-        'title' => 'BI.ZONE: мошенники похитили более 560 доменов и превратили их в фишинговые сайты'
-    ],
-    [
-        'id' => 3,
-        'title' => 'РЖД представила собственного виртуального помощника «Валера»'
-    ],
-    [
-        'id' => 4,
-        'title' => '«МегаФон» и Банки.ру представят совместный проект'
-    ]
-];
+Route::get('/', [HomeController::class, 'index']);
 
-$username = 'Пользователь';
+Route::get('/news', [NewsController::class, 'index']);
 
+Route::get('/news/{id}', [NewsController::class, 'show']);
 
-Route::get('/', function () use ($username) {
-    return view('home')->with('username', $username);
-});
+Route::get('/categories', [CategoriesController::class, 'index']);
 
-Route::get('/news', function () use ($news) {
-    return view('news')->with('news', $news);
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/news/category/{category_id}', [NewsController::class, 'showByCategory']);
