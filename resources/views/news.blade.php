@@ -9,8 +9,20 @@
 <body>
     <h2>Новости</h2>
 
+    @if(isset($category))
+        <h3>{{ $category['name'] }}</h3>
+    @endif
+
     @foreach ($news as $element)
-        <p><b>{{$element['title']}}</b></p>
+
+    <div>
+        <hr>
+        <h3>{{$element['title']}}</h3>
+        <p>Опубликовано: {{$element['created_at']}} Пользователем: {{$element['author']}}</p>
+        <a href="/news/{{$element['id']}}">Открыть</a>
+        <hr>
+    </div>
+        
     @endforeach
     
 </body>
