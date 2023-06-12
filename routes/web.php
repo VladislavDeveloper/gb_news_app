@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\CategoriesController\CategoriesController;
-use App\Http\Controllers\HomeController\HomeController;
 use App\Http\Controllers\NewsController\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/news', [NewsController::class, 'index']);
+//Admin routes
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function(){
+   Route::get('/', IndexController::class)->name('home');
+   Route::resource('/news', AdminNewsController::class);
+   Route::resource('/category', AdminCategoryController::class);
+});
+
+//User routes
+Route::get('/', [NewsController::class, 'index'])->name('home');
+
+Route::get('/news', [NewsController::class, 'index'])->name('news');
 
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
-Route::get('/categories', [CategoriesController::class, 'index']);
+Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
 
 Route::get('/news/category/{category_id}', [NewsController::class, 'showByCategory']);
