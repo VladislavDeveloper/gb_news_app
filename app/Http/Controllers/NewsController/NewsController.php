@@ -14,7 +14,11 @@ class NewsController extends Controller
     {
         $news = $this->fetchNews();
 
-        return view('news', ['news' => $news]);
+        $categories = $this->fetchCategories();
+
+        $recentNews = $this->fetchNews();
+
+        return view('news/index', ['news' => $news, 'categories' => $categories, 'recentNews' => $recentNews]);
     }
 
     /**
@@ -44,16 +48,20 @@ class NewsController extends Controller
             return "404: Page not found";
         }
 
-        return view('article', ['news' => $news]);
+        return view('pages/article', ['news' => $news]);
     }
 
     public function showByCategory(string $category_id)
     {
         $news = $this->featchNewsByCategory($category_id);
 
+        $categories = $this->fetchCategories();
+
         $category = $this->fetchCategories($category_id);
 
-        return view('news', ['news' => $news, 'category' => $category]);
+        $recentNews = $this->fetchNews();
+
+        return view('news/index', ['news' => $news, 'category' => $category, 'categories' => $categories, 'recentNews' => $recentNews]);
     }
 
     /**
