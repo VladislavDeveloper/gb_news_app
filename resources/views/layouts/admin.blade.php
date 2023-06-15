@@ -17,7 +17,7 @@
               <a class="link-secondary" href="#">Санкт-Петербург, Россия</a>
             </div>
             <div class="col-4 text-center">
-              <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/admin">BreakingNews</a>
+              <a class="blog-header-logo text-body-emphasis text-decoration-none" href="{{ route('admin.home') }}">BreakingNews</a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <div class="btn-group">
@@ -41,12 +41,12 @@
             <h3>Панель администратора</h3>
             <div class="admin-dashbord row row-cols-2 d-flex justify-content-around">
                  <nav class="nav flex-column col col-md-2">
-                    <a class="nav-link active" href="/admin">Главная</a>
-                    <a class="nav-link active" aria-current="page" href="/admin/category">Категории</a>
-                    <a class="nav-link" href="/admin/news">Новости</a>
-                    <a class="nav-link" href="#">Пользователи</a>
+                    <a class="nav-link active" href="{{ route('admin.home') }}">Главная</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('admin.category.index') }}">Категории</a>
+                    <a class="nav-link" href="{{ route('admin.news.index') }}">Новости</a>
+                    <a class="nav-link" href="{{ route('admin.orders.index') }}">Выгрузка</a>
                 </nav>
-                <section>
+                <section class="col col-md-10">
                     <x-alert :type="request()->get('type', 'success')" message="Some message"></x-alert>
                     @yield('content')
                 </section>

@@ -1,26 +1,38 @@
 @extends('layouts/admin')
 @section('content')
-    <form action="" class="col col-md-10">
-            <h3>Добавление новости</h3>
-           <div class="mb-3">
-               <label for="exampleFormControlInput1" class="form-label">Название</label>
-               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Название">
-           </div>
-           <div class="mb-3">
-               <label for="exampleFormControlInput1" class="form-label">Категория</label>
-               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Категория">
-           </div>
-           <div class="mb-3">
-               <label for="exampleFormControlInput1" class="form-label">Статус</label>
-               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Статус">
-           </div>
-           <div class="mb-3">
-               <label for="exampleFormControlInput1" class="form-label">Изображение</label>
-               <input type="file" >
-           </div>
-           <div class="mb-3">
-               <label for="exampleFormControlTextarea1" class="form-label">Текст</label>
-               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-           </div>
-    </form>
+    <div class="table-responsive small">
+      <div class="d-flex justify-content-between">
+        <h3>Новости</h3>
+        <a href="{{ route('admin.news.create') }}" type="button" class="btn btn-sm btn-outline-secondary me-3">Добавить новость</a>
+      </div>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach($newsList as $news)
+                <tr>
+                  <td>{{ $news['id'] }}</td>
+                  <td>{{ $news['title'] }}</td>
+                  <td>{{ $news['description'] }}</td>
+                  <td>{{ $news['category_id'] }}</td>
+                  <td>{{ $news['created_at'] }}</td>
+                  <td>
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Удалить</button>
+                    </div>
+                  </td>
+                </tr>
+            @endforeach
+        </tbody>
+      </table>
+    </div>
 @endsection
