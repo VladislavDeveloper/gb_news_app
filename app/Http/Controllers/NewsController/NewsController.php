@@ -45,7 +45,9 @@ class NewsController extends Controller
         $news = $this->fetchNews($id);
 
         if(empty($news)){
-            return "404: Page not found";
+            return response([
+                'message' => '404 page not found'
+            ], 404);
         }
 
         return view('pages/article', ['news' => $news]);
@@ -58,6 +60,12 @@ class NewsController extends Controller
         $categories = $this->fetchCategories();
 
         $category = $this->fetchCategories($category_id);
+
+        if(!isset($category)){
+            return response([
+                'message' => '404 page not found'
+            ], 404);
+        }
 
         $recentNews = $this->fetchNews();
 

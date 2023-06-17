@@ -9,6 +9,26 @@ class NewsController extends Controller
 {
     public function index()
     {
-        return view('Admin/news');
+        $newsList = $this->fetchNews();
+
+        return view('Admin/news', ['newsList' => $newsList]);
+    }
+    public function create()
+    {
+        $categories = $this->fetchCategories();
+
+        return view('forms/news', ['categories' => $categories]);
+    }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'string'],
+            'author' => ['required', 'string'],
+            'category' => ['required', 'string'],
+            'status' => ['required'],
+            'description' => ['required']
+        ]);
+
+        return response()->json($request->only('title', 'author', 'category', 'status', 'description'));
     }
 }
