@@ -11,7 +11,6 @@
             <th scope="col">id</th>
             <th scope="col">Название</th>
             <th scope="col">Описание</th>
-            <th scope="col">Категория</th>
             <th scope="col">Дата создания</th>
             <th scope="col">Действия</th>
           </tr>
@@ -19,11 +18,10 @@
         <tbody>
             @foreach($newsList as $news)
                 <tr>
-                  <td>{{ $news['id'] }}</td>
-                  <td>{{ $news['title'] }}</td>
-                  <td>{{ $news['description'] }}</td>
-                  <td>{{ $news['category_id'] }}</td>
-                  <td>{{ $news['created_at'] }}</td>
+                  <td>{{ $news->id }}</td>
+                  <td>{{ $news->title }}</td>
+                  <td>{{ $news->description }}</td>
+                  <td>{{ $news->created_at }}</td>
                   <td>
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>

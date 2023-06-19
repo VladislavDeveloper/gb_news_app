@@ -16,8 +16,8 @@
         <tbody>
             @foreach($categories as $category)
                 <tr>
-                  <td>{{ $category['id'] }}</td>
-                  <td>{{ $category['name'] }}</td>
+                  <td>{{ $category->id }}</td>
+                  <td>{{ $category->name }}</td>
                   <td>
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>

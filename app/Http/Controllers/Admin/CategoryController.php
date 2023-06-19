@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = $this->fetchCategories();
+        $model = app(Category::class);
 
-        return view('Admin/category', ['categories' => $categories]);
+        return view('Admin/category', ['categories' => $model->getCategories()]);
     }
 
     public function create()

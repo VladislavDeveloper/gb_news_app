@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,9 +13,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $oreders = [];
+        $model = app(Order::class);
 
-        return view('admin/orders');
+        return view('admin/orders', ['orders' => $model->getOrders()]);
     }
 
     /**

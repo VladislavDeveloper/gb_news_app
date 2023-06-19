@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        $newsList = $this->fetchNews();
+        $model = app(News::class);
 
-        return view('Admin/news', ['newsList' => $newsList]);
+        return view('Admin/news', ['newsList' => $model->getNews()]);
     }
     public function create()
     {
