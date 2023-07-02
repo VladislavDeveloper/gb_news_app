@@ -12,14 +12,14 @@
                 <input type="text" name="author" id="author" class="form-control" />
             </div>
             <div class="form-group">
-                <label for="title">Категория</label>
-                <select class="form-control" name="category" id="category">
+                <label for="title">Категории</label>
+                <select class="form-control" multiple name="categories[]" id="categories">
                     @if(isset($categories))
-                    @foreach($categories as $category)
-                    <option>{{ $category['name'] }}</option>
-                    @endforeach
-                    @else
-                    <option>Нет категорий</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        @else
+                        <option>Нет категорий</option>
                     @endif
                 </select>
             </div>

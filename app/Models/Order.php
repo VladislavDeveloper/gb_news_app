@@ -13,13 +13,10 @@ class Order extends Model
 
     protected $table = 'order';
 
-    public function getOrders(): Collection
-    {
-        return DB::table($this->table)->get();
-    }
-
-    public function getOrderById(int $id)
-    {
-        return DB::table($this->table)->find($id);
-    }
+    protected $fillable = [
+        'customer',
+        'email',
+        'phone',
+        'order',
+    ];
 }

@@ -18,15 +18,31 @@
                 <tr>
                   <td>{{ $category->id }}</td>
                   <td>{{ $category->name }}</td>
-                  <td>
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Удалить</button>
-                    </div>
-                  </td>
+                  <td><a href="{{ route('admin.category.edit', ['category' => $category]) }}">Редактировать</a>&nbsp; 
+                  <a href="#" onclick="deleteRequest({{ $category->id }})" style="color:red">Delete</a> </td>
                 </tr>
             @endforeach
         </tbody>
       </table>
     </div>
 @endsection
+
+
+<script>
+
+  async function deleteRequest(id){
+
+    const response = await fetch(`category/destroy/${id}`, {
+      method: 'DELETE',
+      headers: { 
+          'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+      }
+    }).catch(e => console.log(e))
+
+    if(response.status == 200){
+      location.reload()
+    }
+
+  }
+
+</script>

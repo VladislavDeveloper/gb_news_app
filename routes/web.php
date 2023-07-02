@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function(){
    Route::resource('/news', AdminNewsController::class);
    Route::resource('/category', AdminCategoryController::class);
    Route::resource('/orders', AdminOrderController::class);
+   Route::delete('/category/destroy/{id}', [AdminCategoryController::class, 'destroy'])->name('destroy-category');
 });
 
 //User routes

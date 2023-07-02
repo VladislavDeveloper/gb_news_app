@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BreakingNews Admin</title>
 </head>
 <body>
@@ -50,9 +51,7 @@
                     <x-alert :type="request()->get('type', 'success')" message="Some message"></x-alert>
                     @yield('content')
                 </section>
-            </div>
-           
-            
+            </div>   
     </main>
 
     <footer class="py-5 text-center text-body-secondary bg-body-tertiary">

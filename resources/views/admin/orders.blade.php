@@ -19,12 +19,7 @@
                   <tr>
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->customer }}</td>
-                    <td>
-                      <div class="btn-group me-2">
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                          <button type="button" class="btn btn-sm btn-outline-secondary">Удалить</button>
-                      </div>
-                    </td>
+                    <td><a href="{{ route('admin.orders.edit', ['order' => $order]) }}">Редактировать</a>&nbsp; <a href="javascript:;" style="color:red">Delete</a> </td>
                   </tr>
               @endforeach
               @else
@@ -32,5 +27,5 @@
           </tbody>
         </table>
       @endif
-    </div>
+</div>
 @endsection

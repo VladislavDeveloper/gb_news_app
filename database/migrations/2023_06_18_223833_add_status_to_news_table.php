@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::table('news', function (Blueprint $table): void 
         {
-            $table->enum('status', NewsStatus::all())->after('description');
+            $table->enum('status', NewsStatus::all());
             $table->index('status');
         });
     }
