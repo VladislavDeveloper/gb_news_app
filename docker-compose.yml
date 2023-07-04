@@ -19,7 +19,7 @@ services:
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=9101721
-            - POSTGRES_DB=gb_news_app
+            - POSTGRES_DB=news_app_db
         ports:
             - '8084:5432'
 

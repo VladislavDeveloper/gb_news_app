@@ -11,7 +11,6 @@
             <th scope="col">id</th>
             <th scope="col">Название</th>
             <th scope="col">Описание</th>
-            <th scope="col">Категория</th>
             <th scope="col">Дата создания</th>
             <th scope="col">Действия</th>
           </tr>
@@ -19,17 +18,11 @@
         <tbody>
             @foreach($newsList as $news)
                 <tr>
-                  <td>{{ $news['id'] }}</td>
-                  <td>{{ $news['title'] }}</td>
-                  <td>{{ $news['description'] }}</td>
-                  <td>{{ $news['category_id'] }}</td>
-                  <td>{{ $news['created_at'] }}</td>
-                  <td>
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Удалить</button>
-                    </div>
-                  </td>
+                  <td>{{ $news->id }}</td>
+                  <td>{{ $news->title }}</td>
+                  <td>{{ $news->description }}</td>
+                  <td>{{ $news->created_at }}</td>
+                  <td><a href="{{ route('admin.news.edit', ['news' => $news]) }}">Редактировать</a>&nbsp; <a href="javascript:;" style="color:red">Delete</a> </td>
                 </tr>
             @endforeach
         </tbody>

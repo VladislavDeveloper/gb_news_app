@@ -5,11 +5,11 @@
             <h3>Запрос на получение данных</h3>
            <div class="mb-3">
                <label for="exampleFormControlInput1" class="form-label">Имя заказчика</label>
-               <input type="text" name="name" class="form-control" placeholder="Имя заказчика">
+               <input type="text" name="customer" class="form-control" placeholder="Имя заказчика">
            </div>
            <div class="mb-3">
                <label for="exampleFormControlInput1" class="form-label">Номер телефона</label>
-               <input type="phone" name="phonenumber" class="form-control" placeholder="Номер телефона">
+               <input type="phone" name="phone" class="form-control" placeholder="Номер телефона">
            </div>
            <div class="mb-3">
                <label for="exampleFormControlInput1" class="form-label">Email</label>

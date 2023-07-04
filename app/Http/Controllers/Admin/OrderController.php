@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Queries\OrdersQueryBuilder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+
+    public function __construct(
+        protected OrdersQueryBuilder $ordersQueryBuilder
+    )
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $oreders = [];
-
-        return view('admin/orders');
+        return view('admin/orders', ['orders' => $this->ordersQueryBuilder->getAll()]);
     }
 
     /**
@@ -22,7 +31,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('forms/order');
+        return view('forms/Orders/create');
     }
 
     /**
@@ -30,14 +39,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-        'name' => ['required', 'string'],
-        'email' => ['required', 'string'],
-        'phonenumber' => ['required'],
-        'order' => ['required']
-       ]);
+       $order = $request->only(['customer', 'phone', 'email', 'order']);
 
-       return response()->json($request->only('name', 'email', 'phonenumber', 'order'));
+       $order = Order::create($order);
+
+       if($order !== false){
+            return redirect()->route('admin.orders.index')->with('success', 'Order saved');
+       }
+
+       return redirect()->route('admin.orders.index')->with('error', 'Order has not been saved');
     }
 
     /**
@@ -51,17 +61,27 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
-        //
+        return view('forms/Orders/edit', [
+            'order' => $order
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order): RedirectResponse
     {
-        //
+        $orderData = $request->only(['customer', 'phone', 'email', 'order']);
+
+        $order = $order->fill($orderData);
+
+        if($order->save()){
+            return redirect()->route('admin.orders.index')->with('success', 'Order has been updated');
+        }
+
+        return redirect()->route('admin.orders.index')->with('error', 'Order has not been updated');
     }
 
     /**
