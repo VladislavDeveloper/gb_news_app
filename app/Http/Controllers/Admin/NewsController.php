@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\Create;
+use App\Http\Requests\News\Update;
 use App\Models\News;
 use App\Queries\CategoriesQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -28,18 +29,17 @@ class NewsController extends Controller
     {
         return view('forms/news/create', ['categories' => $this->categoriesQueryBulder->getAll()]);
     }
-    public function store(Request $request)
+
+    public function store(Create $request)
     {
-       $news = $request->only(['title', 'author', 'status', 'description']);
-       $categories = $request->input('categories');
 
-       $news = News::create($news);
-       if($news !== false){
-            if($categories !== null){
-                $news->categories()->attach($categories);
+       $news = News::create($request->validated());
 
-                return redirect()->route('admin.news.index')->with('success', 'News saved');
-            }
+       if($news){
+
+            $news->categories()->attach($request->getCategories());
+
+            return redirect()->route('admin.news.index')->with('success', 'News saved');
        }
 
        return redirect()->route('admin.news.index')->with('error', 'News not saved');
@@ -53,15 +53,13 @@ class NewsController extends Controller
         ]);
     }
 
-    public function update(Request $request, News $news): RedirectResponse
+    public function update(Update $request, News $news): RedirectResponse
     {
-        $newsData = $request->only(['title', 'author', 'status', 'description']);
-        $categories = $request->input('categories');
 
-        $news = $news->fill($newsData);
+        $news = $news->fill($request->validated());
 
         if($news->save()){
-            $news->categories()->sync($categories);
+            $news->categories()->sync($request->getCategories());
 
             return redirect()->route('admin.news.index')->with('success', 'News updated successfully');
         }
@@ -69,7 +67,7 @@ class NewsController extends Controller
         return redirect()->route('admin.news.index')->with('error', 'News has not been updated');
     }
 
-    public function delete()
+    public function destroy()
     {
 
     }

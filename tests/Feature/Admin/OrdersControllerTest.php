@@ -23,20 +23,21 @@ class OrdersControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_admin_orders_form_returns_json(): void
+    public function test_admin_order_save_to_db(): void
     {
-        $dummy = [
-            'name' => 'Vladislav',
+        $order = [
+            'customer' => 'Vladislav',
             'email' => 'test@mail.ru',
-            'phonenumber' => '89297771122',
+            'phone' => '89297771122',
             'order' => 'Some order'
         ];
 
-        $response = $this->post(route('admin.orders.store'), $dummy);
+        $response = $this->post(route('admin.orders.store'), $order);
 
-        $response->assertStatus(200);
+        $this->assertDatabaseHas('order', $order);
 
-        $response->assertJson($dummy);
+        $response->assertRedirect(route('admin.orders.index'));
+
     }
 
     public function test_admin_orders_form_returns_error_if_empty(): void

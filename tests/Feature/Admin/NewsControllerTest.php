@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -23,22 +24,28 @@ class NewsControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_admin_news_controller_form_returns_json(): void
-    {
-        $dummy = [
-            'title' => 'Some title',
-            'author' => 'test@mail.com',
-            'category' => 'category',
-            'status' => 'DRAFT',
-            'description' => 'Some text'
-        ];
+    // public function test_admin_news_controller_save_news_to_db(): void
+    // {
+    //     $category = Category::factory()->create([
+    //         'name' => 'Новая категория'
+    //     ]);
 
-        $response = $this->post(route('admin.news.store'), $dummy);
+    //     $news = [
+    //         'title' => 'Some title',
+    //         'author' => 'test@mail.com',
+    //         'status' => 'DRAFT',
+    //         'description' => 'Some text',
+    //         'categories' => [
+    //             'New category'
+    //         ]
+    //     ];
 
-        $response->assertStatus(200);
+    //     $response = $this->post(route('admin.news.store'), $news);
 
-        $response->assertJson($dummy);
-    }
+    //     $this->assertDatabaseHas('news', $news);
+
+    //     $response->assertRedirect(route('admin.news.index'));
+    // }
 
     public function test_admin_news_controller_form_returns_error_if_empty(): void
     {

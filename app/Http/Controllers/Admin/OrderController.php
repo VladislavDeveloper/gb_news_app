@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Orders\Create;
+use App\Http\Requests\Orders\Update;
 use App\Models\Order;
 use App\Queries\OrdersQueryBuilder;
 use Illuminate\Http\RedirectResponse;
@@ -37,13 +39,12 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
-       $order = $request->only(['customer', 'phone', 'email', 'order']);
 
-       $order = Order::create($order);
+       $order = Order::create($request->validated());
 
-       if($order !== false){
+       if($order){
             return redirect()->route('admin.orders.index')->with('success', 'Order saved');
        }
 
@@ -71,11 +72,9 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order): RedirectResponse
+    public function update(Update $request, Order $order): RedirectResponse
     {
-        $orderData = $request->only(['customer', 'phone', 'email', 'order']);
-
-        $order = $order->fill($orderData);
+        $order = $order->fill($request->validated());
 
         if($order->save()){
             return redirect()->route('admin.orders.index')->with('success', 'Order has been updated');

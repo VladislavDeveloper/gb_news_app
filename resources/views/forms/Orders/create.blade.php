@@ -1,5 +1,12 @@
 @extends('layouts/admin')
 @section('content')
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert type="danger" :message="$error" ></x-alert>
+        @endforeach
+    @endif
+    
     <form method="post" action="{{ route('admin.orders.store') }}" class="col col-md-10">
             @csrf
             <h3>Запрос на получение данных</h3>
