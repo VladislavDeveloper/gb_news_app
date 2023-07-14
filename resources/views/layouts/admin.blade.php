@@ -48,7 +48,6 @@
                     <a class="nav-link" href="{{ route('admin.orders.index') }}">Выгрузка</a>
                 </nav>
                 <section class="col col-md-10">
-                    <x-alert :type="request()->get('type', 'success')" message="Some message"></x-alert>
                     @yield('content')
                 </section>
             </div>   

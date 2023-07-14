@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Categories\Create;
+use App\Http\Requests\Categories\Update;
 use App\Models\Category;
 use App\Queries\CategoriesQueryBuilder;
 use Illuminate\Contracts\View\View;
@@ -29,13 +31,11 @@ class CategoryController extends Controller
         return view('forms/Categories/create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Create $request): RedirectResponse
     {
-        $category = $request->only(['name']);
+        $category = Category::create($request->validated());
 
-        $category = Category::create($category);
-
-        if($category !== false){
+        if($category){
             return redirect()->route('admin.category.index')->with('success', 'category created');
         }
 
@@ -49,11 +49,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(Update $request, Category $category): RedirectResponse
     {
-        $categoryName = $request->only('name');
-
-        $category = $category->fill($categoryName);
+        $category = $category->fill($request->validated());
 
         if($category->save()){
             return redirect()->route('admin.category.index')->with('success', 'Category updated successfully');

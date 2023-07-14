@@ -1,5 +1,13 @@
 @extends('layouts/admin')
 @section('content')
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert type="danger" :message="$error" ></x-alert>
+        @endforeach
+    @endif
+
+    
     <form method="post" action="{{ route('admin.orders.update', ['order' => $order] ) }}" class="col col-md-10">
             @csrf
             @method('put')

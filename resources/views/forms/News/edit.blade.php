@@ -2,13 +2,13 @@
 @section('content')
 
 
-    @if ($errors->any())
-                @foreach($errors->all() as $error)
-                    <x-alert type="danger" :message="$error"></x-alert>
-                @endforeach
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert type="danger" :message="$error" ></x-alert>
+        @endforeach
     @endif
 
-    
+
     <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}" enctype="multipart/form-data" class="col col-md-10">
         @csrf
         @method('put')

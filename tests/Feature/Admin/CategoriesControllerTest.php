@@ -2,8 +2,11 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Category;
+use App\Queries\CategoriesQueryBuilder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class CategoriesControllerTest extends TestCase
@@ -18,22 +21,23 @@ class CategoriesControllerTest extends TestCase
     
     public function test_admin_categories_controller_create_form_successful_response(): void
     {
-        $response = $this->get(route('admin.category.index'));
+        $response = $this->get(route('admin.category.create'));
 
         $response->assertStatus(200);
     }
 
-    public function test_admin_categories_form_returns_json(): void
+    public function test_admin_categories_save_new_category_to_db(): void
     {
-        $dummy = [
-            'name' => 'some category'
+
+        $category = [
+            'name' => 'new title'
         ];
 
-        $response = $this->post(route('admin.category.store'), $dummy);
+        $response = $this->post(route('admin.category.store'), $category);
 
-        $response->assertStatus(200);
+        $this->assertDatabaseHas('categories', $category);
 
-        $response->assertJson($dummy);
+        $response->assertRedirect();
     }
 
     public function test_admin_categories_form_returns_error_if_empty(): void
@@ -55,4 +59,19 @@ class CategoriesControllerTest extends TestCase
 
         $response->assertStatus(302);
     }
+
+    // public function test_admin_categories_destroy_category(): void
+    // {
+    //     $category = DB::table('categories')->where('name', 'new title');
+
+    //     $category_id = $category->value('id');
+
+    //     $response = $this->delete("/category/destroy/$category_id");
+
+    //     $response->assertStatus(200);
+
+    //     $this->assertDatabaseMissing('categories', [
+    //         'id' => $category_id
+    //     ]);
+    // }
 }
