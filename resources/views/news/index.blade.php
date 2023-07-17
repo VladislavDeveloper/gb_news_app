@@ -1,4 +1,4 @@
-@extends('layouts/main')
+@extends('layouts/app')
 @section('title') Новости @parent  @stop
 @section('content')
         
@@ -20,7 +20,7 @@
                             <h3>{{ $element->title }}</h3>
                             <p class="card-text">{{ $element->description }}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="/news/{{ $element->id }}">Читать подробнее...</a>
+                                <a href="{{ route('news.show', ['news' => $element])}}">Читать подробнее...</a>
                               <small class="text-body-secondary">Добавлено: <b>{{ $element->created_at }}</b></small>
                             </div>
                           </div>
