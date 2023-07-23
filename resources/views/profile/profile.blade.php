@@ -12,6 +12,9 @@
                         </div>
                     @endif
                     <h3>Профиль</h3>
+                    @if(Auth::user()->avatar)
+                        <img src="{{ Auth::user()->avatar }}" alt="" width="100px">
+                    @endif
                     <h3>Привет, {{ Auth::user()->name }}</h3>
                     <br>
                     @if(Auth::user()->isAdmin)

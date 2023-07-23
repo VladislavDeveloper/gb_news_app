@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\NewsController\NewsController;
 use App\Http\Controllers\ProfileController\ProfileController;
+use App\Http\Controllers\SocialProvidersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'isAdmin'],
    Route::resource('/orders', AdminOrderController::class);
    Route::resource('/users', AdminUserController::class);
    Route::delete('/category/destroy/{id}', [AdminCategoryController::class, 'destroy'])->name('destroy-category');
+   Route::get('/parse', ParserController::class);
+});
+
+
+//Socialite authentication routes
+
+Route::group(['middleware' => 'guest'], function () {
+   Route::get('/{driver}/redirect', [SocialProvidersController::class, 'redirect'])->name('social-providers-redirect');
+   Route::get('/{driver}/callback', [SocialProvidersController::class, 'callback'])->name('social-providers-callback');
+});
+
+//Authenticated user's routes
+Route::group(['middleware' => 'auth'], function () {
+   Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
 });
 
 //User routes
@@ -39,8 +55,6 @@ Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::resource('/news', NewsController::class);
 
 Route::get('/category/{category_id}/news', [NewsController::class, 'showByCategory']);
-
-Route::resource('/profile', ProfileController::class);
 
 Auth::routes();
 
