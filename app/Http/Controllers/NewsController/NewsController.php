@@ -3,22 +3,26 @@
 namespace App\Http\Controllers\NewsController;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\News;
+use App\Queries\CategoriesQueryBuilder;
+use App\Queries\NewsQueryBuilder;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
+
+    public function __construct(
+        protected NewsQueryBuilder $newsQueryBuilder,
+        protected CategoriesQueryBuilder $categoriesQueryBulder
+    )
+    {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $news = app(News::class);
-
-        $categories = app(Category::class);
-
-        return view('news/index', ['news' => $news->getNews(), 'categories' => $categories->getCategories(), 'recentNews' => $news->getNews()]);
+        return view('news/index', ['news' => $this->newsQueryBuilder->getAll()]);     
     }
 
     /**
@@ -40,17 +44,9 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(News $news)
     {
-        $news = app(News::class);
-
-        if(empty($news)){
-            return response([
-                'message' => '404 page not found'
-            ], 404);
-        }
-
-        return view('pages/article', ['news' => $news->getNewsById($id)]);
+        return view('pages/article', ['news' => $news]);
     }
 
     public function showByCategory(string $category_id)

@@ -9,20 +9,20 @@
         <thead>
           <tr>
             <th scope="col">id</th>
-            <th scope="col">Название</th>
-            <th scope="col">Описание</th>
-            <th scope="col">Дата создания</th>
+            <th scope="col">Email-адрес</th>
+            <th scope="col">Имя пользователя</th>
+            <th scope="col">Админ</th>
             <th scope="col">Действия</th>
           </tr>
         </thead>
         <tbody>
-            @foreach($newsList as $news)
+            @foreach($users as $user)
                 <tr>
-                  <td>{{ $news->id }}</td>
-                  <td>{{ $news->title }}</td>
-                  <td>{{ $news->description }}</td>
-                  <td>{{ $news->created_at }}</td>
-                  <td><a href="{{ route('admin.news.edit', ['news' => $news]) }}">Редактировать</a>&nbsp; <a href="javascript:;" style="color:red">Delete</a> </td>
+                  <td>{{ $user->id }}</td>
+                  <td>{{ $user->email }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->isAdmin ? 'Да' : 'Нет' }}</td>
+                  <td><a href="{{ route('admin.users.edit', ['user' => $user]) }}">Редактировать</a>&nbsp; <a href="javascript:;" style="color:red">Delete</a> </td>
                 </tr>
             @endforeach
         </tbody>

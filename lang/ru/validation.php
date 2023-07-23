@@ -125,6 +125,8 @@ return [
         'author' => 'Автор',
         'customer' => 'Имя заказчика',
         'phone' => 'Номер телефона',
+        'Email Address' => 'Email адресс',
+        'Password' => 'Пароль'
     ],
 
 ];

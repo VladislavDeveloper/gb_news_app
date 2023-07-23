@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>BreakingNews Admin</title>
-</head>
-<body>
-    <div class="container">
+@extends('layouts/app');
+@section('content');
+    <!-- <div class="container">
         <header class="border-bottom lh-1 py-3">
           <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
@@ -35,7 +24,8 @@
             </div>
           </div>
         </header>
-    </div>
+    </div> -->
+
 
     <main>
         <div class="container">
@@ -45,12 +35,13 @@
                     <a class="nav-link active" href="{{ route('admin.home') }}">Главная</a>
                     <a class="nav-link active" aria-current="page" href="{{ route('admin.category.index') }}">Категории</a>
                     <a class="nav-link" href="{{ route('admin.news.index') }}">Новости</a>
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">Пользователи</a>
                     <a class="nav-link" href="{{ route('admin.orders.index') }}">Выгрузка</a>
                 </nav>
                 <section class="col col-md-10">
                     @yield('content')
                 </section>
-            </div>   
+        </div>   
     </main>
 
     <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
@@ -62,5 +53,4 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
-</html>
+@endsection

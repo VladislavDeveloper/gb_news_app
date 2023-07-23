@@ -1,4 +1,4 @@
-@extends('layouts/admin')
+@extends('layouts/adminPanel')
 @section('content')
     <div class="info d-flex justify-content-between">
         <div class="border border-primary rounded p-3">

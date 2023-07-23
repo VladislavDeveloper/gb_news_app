@@ -1,4 +1,4 @@
-@extends('layouts/admin')
+@extends('layouts/adminPanel')
 @section('content')
 <div class="table-responsive small">
       <div class="d-flex justify-content-between">
