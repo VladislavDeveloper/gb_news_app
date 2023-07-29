@@ -24,7 +24,6 @@ class IsAdminCheck
                 return $next($request);
             }
         }
-
         
         return redirect('login');
     }
