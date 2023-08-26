@@ -86,6 +86,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('admin.category.index') }}">Категории</a>
                         <a class="nav-link" href="{{ route('admin.news.index') }}">Новости</a>
                         <a class="nav-link" href="{{ route('admin.users.index') }}">Пользователи</a>
+                        <a class="nav-link" href="{{ route('admin.resources.index') }}">Источники</a>
                         <a class="nav-link" href="{{ route('admin.orders.index') }}">Выгрузка</a>
                     </nav>
                     <section class="col col-md-10">

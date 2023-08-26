@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\Admin\ResourceController as AdminResourcesController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\NewsController\NewsController;
 use App\Http\Controllers\ProfileController\ProfileController;
@@ -31,7 +32,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'isAdmin'],
    Route::resource('/orders', AdminOrderController::class);
    Route::resource('/users', AdminUserController::class);
    Route::delete('/category/destroy/{id}', [AdminCategoryController::class, 'destroy'])->name('destroy-category');
-   Route::get('/parse', ParserController::class);
+   Route::get('/parse', ParserController::class)->name('parse');
+   Route::resource('/resources', AdminResourcesController::class);
 });
 
 
@@ -59,3 +61,8 @@ Route::get('/category/{category_id}/news', [NewsController::class, 'showByCatego
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+   \UniSharp\LaravelFilemanager\Lfm::routes();
+});
